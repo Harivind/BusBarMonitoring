@@ -52,10 +52,17 @@ class _MyHomePageState extends State<MyHomePage> {
     print(response.body);
     print("-----------------");
     if (response.statusCode == 200) {
-      if (data != response.body.replaceAll("<br>", "\r\n"))
-        setState(() {
-          data = response.body.replaceAll("<br>", "\r\n");
-        });
+      List<String> strArr = response.body.split("<strong>");
+      setState(() {
+        data = "Offset Current = " +
+            strArr[1].split("</strong>")[0] +
+            "\nVoltage = " +
+            strArr[2].split("</strong>")[0] +
+            "\nTemperature = " +
+            strArr[3].split("</strong>")[0] +
+            "\nThermal Status = " +
+            strArr[4].split("</strong>")[0];
+      });
     } else {
       setState(() {
         data = response.body.replaceAll("<br>", "\r\n");
